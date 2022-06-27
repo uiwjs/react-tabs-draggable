@@ -59,8 +59,8 @@ npm run start     # Preview code example.
 
 As always, thanks to our amazing contributors!
 
-<a href="https://github.com/uiwjs/react-codemirror/graphs/contributors">
-  <img src="https://uiwjs.github.io/react-codemirror/CONTRIBUTORS.svg" />
+<a href="https://github.com/uiwjs/react-tabs-draggable/graphs/contributors">
+  <img src="https://uiwjs.github.io/react-tabs-draggable/CONTRIBUTORS.svg" />
 </a>
 
 Made with [github-action-contributors](https://github.com/jaywcjlove/github-action-contributors).
