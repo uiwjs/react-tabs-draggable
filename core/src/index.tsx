@@ -1,6 +1,6 @@
-import { DndProvider } from "react-dnd";
-import { FC, PropsWithChildren } from "react";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import { DndProvider } from 'react-dnd';
+import { FC, PropsWithChildren } from 'react';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import { Tabs } from './Tabs';
 import { Provider } from './store';
 
@@ -17,7 +17,7 @@ const Container: FC<PropsWithChildren<TabsProps>> = ({ activeKey, onTabClick, ..
         <Tabs {...props} />
       </Provider>
     </DndProvider>
-  )
-}
+  );
+};
 
-export default Container
+export default Container;

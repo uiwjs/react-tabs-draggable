@@ -1,4 +1,4 @@
-import React, { FC, createContext, PropsWithChildren, useContext, useReducer } from "react";
+import React, { FC, createContext, PropsWithChildren, useContext, useReducer } from 'react';
 
 export interface InitialState {
   activeKey?: string;
@@ -12,7 +12,7 @@ export interface InitialState {
 export const initialState: InitialState = {
   activeKey: '',
   data: [],
-}
+};
 
 export const reducer = (state: Partial<InitialState>, action: Partial<InitialState>) => {
   return {
@@ -32,7 +32,7 @@ export const Context = createContext<CreateContext>({
 });
 
 export const Provider: FC<PropsWithChildren<{ init: InitialState }>> = ({ children, init }) => {
-  const [state, dispatch] = useReducer(reducer, init|| initialState);
+  const [state, dispatch] = useReducer(reducer, init || initialState);
   return <Context.Provider value={{ state, dispatch }}>{children}</Context.Provider>;
 };
 
