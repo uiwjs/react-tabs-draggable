@@ -1,6 +1,7 @@
 {
   "private": true,
   "scripts": {
+    "prepack": "husky install",
     "build": "lerna exec --scope @uiw/* --ignore www -- npm run build",
     "⬇️⬇️⬇️⬇️⬇️ package ⬇️⬇️⬇️⬇️⬇️": "▼▼▼▼▼ package ▼▼▼▼▼",
     "watch": "npm run-script watch --workspace @uiw/react-tabs-draggable",
