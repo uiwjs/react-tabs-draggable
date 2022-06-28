@@ -2,7 +2,7 @@ import React, { FC, createContext, PropsWithChildren, useContext, useReducer } f
 
 export interface InitialState {
   activeKey?: string;
-  onTabClick?: (id: string) => void;
+  onTabClick?: (id: string, evn: React.MouseEvent<HTMLDivElement>) => void;
   data?: Array<{
     id: string;
     text: React.ReactNode;

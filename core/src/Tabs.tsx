@@ -7,7 +7,7 @@ import { TabsProps } from './';
 export const Tabs: FC<PropsWithChildren<TabsProps>> = ({ children, ...props }) => {
   const { state } = useDataContext();
   const [collectedProps, drop] = useDrop(() => ({
-    accept: ItemTypes.CARD,
+    accept: ItemTypes.Tab,
   }));
 
   const renderCard = useCallback(({ text, ...item }: { id: string; text: React.ReactNode }, index: number) => {

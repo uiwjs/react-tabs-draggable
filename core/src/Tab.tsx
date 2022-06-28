@@ -5,12 +5,12 @@ import { useDrag, useDrop } from 'react-dnd';
 import type { Identifier, XYCoord } from 'dnd-core';
 
 export const ItemTypes = {
-  CARD: 'wtabs',
+  Tab: 'wtabs',
 };
 
 export interface TabProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   id: string;
-  index: number;
+  index?: number;
 }
 
 interface DragItem {
@@ -24,7 +24,7 @@ export const Tab: FC<PropsWithChildren<TabProps>> = ({ children, id, index, ...p
   const ref = useRef<HTMLDivElement>(null);
 
   const [{ handlerId }, drop] = useDrop<DragItem, void, { handlerId: Identifier | null }>({
-    accept: ItemTypes.CARD,
+    accept: ItemTypes.Tab,
     collect(monitor) {
       return {
         handlerId: monitor.getHandlerId(),
@@ -34,9 +34,8 @@ export const Tab: FC<PropsWithChildren<TabProps>> = ({ children, id, index, ...p
       if (!ref.current || !state.data) {
         return;
       }
-      console.log(item.index);
       const dragIndex = item.index;
-      const hoverIndex = index;
+      const hoverIndex = index || 0;
       // 不要用自己替换项目
       if (dragIndex === hoverIndex) {
         return;
@@ -72,7 +71,7 @@ export const Tab: FC<PropsWithChildren<TabProps>> = ({ children, id, index, ...p
     },
   });
   const [{ isDragging, targetIds, data }, drag] = useDrag({
-    type: ItemTypes.CARD,
+    type: ItemTypes.Tab,
     item: () => {
       return { id, index };
     },
@@ -103,10 +102,9 @@ export const Tab: FC<PropsWithChildren<TabProps>> = ({ children, id, index, ...p
   if (props.draggable !== false) {
     drag(drop(ref));
   }
-  const handleClick = () => {
-    console.log(id);
+  const handleClick = (evn: React.MouseEvent<HTMLDivElement>) => {
     dispatch!({ activeKey: id });
-    onTabClick && onTabClick(id);
+    onTabClick && onTabClick(id, evn);
   };
   return (
     <div

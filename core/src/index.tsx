@@ -7,7 +7,7 @@ import { Provider } from './store';
 export * from './Tab';
 export interface TabsProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   activeKey?: string;
-  onTabClick?: (id: string) => void;
+  onTabClick?: (id: string, evn: React.MouseEvent<HTMLDivElement>) => void;
 }
 
 const Container: FC<PropsWithChildren<TabsProps>> = ({ activeKey, onTabClick, ...props }) => {
