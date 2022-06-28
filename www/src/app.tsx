@@ -15,7 +15,7 @@ const Content = styled.div`
 export const App = () => {
   return (
     <Warpper>
-      <GitHubCorners target="__blank" fixed href="https://uiwjs.github.io/react-tabs-draggable" />
+      <GitHubCorners target="__blank" fixed href="https://github.com/uiwjs/react-tabs-draggable" />
       <dark-mode permanent></dark-mode>
       <Content>
         <Document />

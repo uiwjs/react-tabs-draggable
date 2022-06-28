@@ -14,35 +14,79 @@ npm install @uiw/react-tabs-draggable --save
 ## Usage
 
 ```jsx mdx:preview
-import React from 'react';
-import { Tabs } from '@uiw/react-tabs-draggable';
+import React, { useState } from 'react';
+import Tabs, { Tab } from '@uiw/react-tabs-draggable';
+import styled from 'styled-components';
+
+const TabIten = styled(Tab)`
+  background-color: #b9b9b9;
+  padding: 3px 7px;
+  border-radius: 5px 5px 0 0;
+  &.w-active {
+    color: #fff;
+    background-color: #333;
+  }
+`;
+
+const Content = styled.div`
+  border-top: 1px solid #333;
+`;
 
 function App() {
-  const data = [
-    {
-      id: 'tab-1',
-      text: 'Baidu'
-    },
-    {
-      id: 'tab-2',
-      text: 'Google'
-    },
-    {
-      id: 'tab-3',
-      text: 'Taobap'
-    },
-    {
-      id: 'tab-4',
-      text: 'Taobap'
-    }
-  ];
-  const addTab = () => {
-
-  }
+  const [activeKey, setActiveKey] = useState('tab-1')
   return (
-    <Tabs data={data}>
-      <button onClick={addTab}>+</button>
-    </Tabs>
+    <div>
+      <Tabs activeKey={activeKey} style={{ gap: 6 }} onTabClick={(id) => setActiveKey(id)}>
+        <TabIten id="tab-1">Google</TabIten>
+        <TabIten id="tab-2">MicroSoft</TabIten>
+        <TabIten id="tab-3">Baidu</TabIten>
+        <TabIten id="tab-4">Taobao</TabIten>
+        <TabIten id="tab-5">JD</TabIten>
+      </Tabs>
+      <Content>{activeKey}</Content>
+    </div>
+  );
+}
+export default App;
+```
+
+## Disable Draggable
+
+The first tab is disabled.
+
+```jsx mdx:preview
+import React, { Fragment, useState } from 'react';
+import Tabs, { Tab } from '@uiw/react-tabs-draggable';
+import styled from 'styled-components';
+
+const TabIten = styled(Tab)`
+  background-color: #b9b9b9;
+  padding: 3px 7px;
+  border-radius: 5px 5px 0 0;
+  user-select: none;
+  &.w-active {
+    color: #fff;
+    background-color: #333;
+  }
+`;
+
+const Content = styled.div`
+  border-top: 1px solid #333;
+`;
+
+function App() {
+  const [activeKey, setActiveKey] = useState('')
+  return (
+    <Fragment>
+      <Tabs style={{ gap: 3 }} onTabClick={(id) => setActiveKey(id)}>
+        <TabIten id="tab-2-1" draggable={false}>Google</TabIten>
+        <TabIten id="tab-2-2">MicroSoft</TabIten>
+        <TabIten id="tab-2-3">Baidu</TabIten>
+        <TabIten id="tab-2-4">Taobao</TabIten>
+        <TabIten id="tab-2-5">JD</TabIten>
+      </Tabs>
+      <Content>{activeKey}</Content>
+    </Fragment>
   );
 }
 export default App;
@@ -63,7 +107,7 @@ As always, thanks to our amazing contributors!
   <img src="https://uiwjs.github.io/react-tabs-draggable/CONTRIBUTORS.svg" />
 </a>
 
-Made with [github-action-contributors](https://github.com/jaywcjlove/github-action-contributors).
+Made with [action-contributors](https://github.com/jaywcjlove/github-action-contributors).
 
 ## License
 
