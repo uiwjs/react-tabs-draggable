@@ -75,3 +75,25 @@ jobs:
         with:
           token: ${{ secrets.NPM_TOKEN }}
           package: ./core/package.json
+
+  github-npm:
+    runs-on: ubuntu-18.04
+    needs: build-deploy
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - run: npm install
+      - run: npm run build
+
+      - name: Modify package name
+        working-directory: core
+        shell: bash
+        run: |
+          node -e 'var pkg = require("./package.json"); pkg.name="@uiwjs/react-tabs-draggable"; require("fs").writeFileSync("./package.json", JSON.stringify(pkg, null, 2))'
+
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
