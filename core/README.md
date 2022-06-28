@@ -124,6 +124,21 @@ function App() {
 export default App;
 ```
 
+## Props
+
+```ts
+export interface TabsProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+  activeKey?: string;
+  onTabClick?: (id: string, evn: React.MouseEvent<HTMLDivElement>) => void;
+}
+export interface TabProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+  id: string;
+  index?: number;
+}
+export declare const Tab: FC<PropsWithChildren<TabProps>>;
+```
+
+
 ## Development
 
 ```bash
