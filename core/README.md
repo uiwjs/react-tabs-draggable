@@ -1,6 +1,10 @@
 react-tabs-draggable
 ===
 
+[![CI](https://github.com/uiwjs/react-tabs-draggable/actions/workflows/ci.yml/badge.svg)](https://github.com/uiwjs/react-tabs-draggable/actions/workflows/ci.yml)
+[![Open in unpkg](https://img.shields.io/badge/Open%20in-unpkg-blue)](https://uiwjs.github.io/npm-unpkg/#/pkg/@uiw/react-tabs-draggable/file/README.md)
+[![npm version](https://img.shields.io/npm/v/@uiw/react-tabs-draggable.svg)](https://www.npmjs.com/package/@uiw/react-tabs-draggable)
+
 Draggable tabs for React. Demo Preview: [@uiwjs.github.io/react-tabs-draggable](https://uiwjs.github.io/react-tabs-draggable/)
 
 ## Install
