@@ -69,9 +69,13 @@ jobs:
 
             ${{ steps.changelog.outputs.changelog }}
 
+    outputs:
+      successful: ${{steps.create_tag.outputs.successful }}
+
   github-package:
     runs-on: ubuntu-18.04
     needs: build-deploy
+    if: needs.build.outputs.successful
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -97,6 +101,7 @@ jobs:
   npm-package:
     runs-on: ubuntu-18.04
     needs: build-deploy
+    if: needs.build.outputs.successful
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
