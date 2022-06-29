@@ -1,7 +1,6 @@
 {
   "private": true,
   "scripts": {
-    "prepack": "husky install",
     "build": "lerna exec --scope @uiw/* --ignore www -- npm run build",
     "⬇️⬇️⬇️⬇️⬇️ package ⬇️⬇️⬇️⬇️⬇️": "▼▼▼▼▼ package ▼▼▼▼▼",
     "watch": "npm run-script watch --workspace @uiw/react-tabs-draggable",
@@ -11,7 +10,7 @@
     "⬆️⬆️⬆️⬆️⬆️ package ⬆️⬆️⬆️⬆️⬆️": "▲▲▲▲▲ package ▲▲▲▲▲",
     "prepare": "husky install",
     "version": "lerna version --exact --force-publish --no-push --no-git-tag-version",
-    "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,json}'",
+    "prettier": "prettier --write '**/*.{js,jsx,ts,tsx,html,less,md,json}'",
     "remove": "npm run clean && lerna exec \"rm -rf package-lock.json\" --scope react-code-preview-layout --scope website",
     "clean": "lerna clean --yes"
   },
@@ -21,6 +20,11 @@
   ],
   "engines": {
     "node": ">=16.0.0"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,html,less,md,json}": [
+      "prettier --write"
+    ]
   },
   "devDependencies": {
     "@kkt/ncc": "^1.0.13",

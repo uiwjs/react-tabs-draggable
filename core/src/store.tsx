@@ -1,5 +1,5 @@
 import React, { FC, createContext, PropsWithChildren, useContext, useReducer } from 'react';
-import { TabsProps } from './'
+import { TabsProps } from './';
 export interface InitialState extends Pick<TabsProps, 'onTabClick' | 'onTabDrop'> {
   activeKey?: string;
   data?: Array<{

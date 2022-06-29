@@ -9,7 +9,9 @@ export const ItemTypes = {
   Tab: 'wtabs',
 };
 
-export interface TabProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, Pick<TabsProps, 'onTabClick' | 'onTabDrop'> {
+export interface TabProps
+  extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+    Pick<TabsProps, 'onTabClick' | 'onTabDrop'> {
   id: string;
   index?: number;
 }
@@ -20,7 +22,7 @@ export interface DragItem {
   type: string;
 }
 
-export const Tab: FC<PropsWithChildren<TabProps>> = ({ children, id, index, onTabClick, onTabDrop,  ...props }) => {
+export const Tab: FC<PropsWithChildren<TabProps>> = ({ children, id, index, onTabClick, onTabDrop, ...props }) => {
   const { state, dispatch } = useDataContext();
   const ref = useRef<HTMLDivElement>(null);
   const [{ handlerId }, drop] = useDrop<DragItem, void, { handlerId: Identifier | null }>({
@@ -70,24 +72,27 @@ export const Tab: FC<PropsWithChildren<TabProps>> = ({ children, id, index, onTa
       item.index = hoverIndex;
     },
   });
-  const [{ isDragging }, drag] = useDrag(() => ({
-    type: ItemTypes.Tab,
-    item: () => {
-      return { id, index };
-    },
-    end: (item) => {
-      onTabDrop && onTabDrop(id, item.index);
-      // dispatch!({ move: { id, index: item.index }});
-      // hanlde(id, item.index)
-    },
-    collect: (monitor) => {
-      return {
-        data: monitor.getItem(),
-        targetIds: monitor.getTargetIds(),
-        isDragging: monitor.isDragging(),
-      };
-    },
-  }), [ id, index ]);
+  const [{ isDragging }, drag] = useDrag(
+    () => ({
+      type: ItemTypes.Tab,
+      item: () => {
+        return { id, index };
+      },
+      end: (item) => {
+        onTabDrop && onTabDrop(id, item.index);
+        // dispatch!({ move: { id, index: item.index }});
+        // hanlde(id, item.index)
+      },
+      collect: (monitor) => {
+        return {
+          data: monitor.getItem(),
+          targetIds: monitor.getTargetIds(),
+          isDragging: monitor.isDragging(),
+        };
+      },
+    }),
+    [id, index],
+  );
 
   const opacity = isDragging ? 0.001 : 1;
 
@@ -97,7 +102,7 @@ export const Tab: FC<PropsWithChildren<TabProps>> = ({ children, id, index, onTa
   const handleClick = (evn: React.MouseEvent<HTMLDivElement>) => {
     dispatch!({ activeKey: id });
     onTabClick && onTabClick(id, evn);
-  }
+  };
   return (
     <div
       {...props}

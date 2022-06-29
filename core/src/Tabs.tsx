@@ -29,11 +29,13 @@ export const Tabs: FC<PropsWithChildren<TabsProps>> = ({ children, onTabClick, o
       className={`w-tabs-draggable ${props.className || ''}`}
       style={{ display: 'flex', ...props.style }}
     >
-      {state.data && state.data.length > 0 && state.data.map(({ element, ...child }, idx) => {
-        if (isValidElement(element)) {
-          return React.cloneElement<any>(element, { ...child, onTabClick, onTabDrop, index: idx })
-        }
-      })}
+      {state.data &&
+        state.data.length > 0 &&
+        state.data.map(({ element, ...child }, idx) => {
+          if (isValidElement(element)) {
+            return React.cloneElement<any>(element, { ...child, onTabClick, onTabDrop, index: idx });
+          }
+        })}
     </div>
   );
 };

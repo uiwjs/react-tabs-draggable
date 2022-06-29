@@ -10,15 +10,12 @@ export interface TabsProps extends React.DetailedHTMLProps<React.HTMLAttributes<
   activeKey?: string;
   onTabClick?: (id: string, evn: React.MouseEvent<HTMLDivElement>) => void;
   /**
-   * Optional. Called when a compatible item is dropped on the target. 
+   * Optional. Called when a compatible item is dropped on the target.
    */
   onTabDrop?: (id: string, index?: number) => void;
 }
 
 const Container: FC<PropsWithChildren<TabsProps>> = ({ activeKey, ...props }) => {
-  useEffect(() => {})
-  // const dragDropManager = useDragDropManager()
-  // dragDropManager.getActions().endDrag()
   return (
     <DndProvider backend={HTML5Backend}>
       <Provider init={{ data: [], activeKey, onTabClick: props.onTabClick, onTabDrop: props.onTabDrop }}>
