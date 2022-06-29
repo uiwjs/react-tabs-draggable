@@ -1,22 +1,27 @@
-import { FC, PropsWithChildren, useCallback } from 'react';
+import React, { FC, isValidElement, PropsWithChildren, useCallback, useEffect } from 'react';
 import { useDrop } from 'react-dnd';
-import { useDataContext } from './store';
-import { Tab, ItemTypes } from './Tab';
+import { useDataContext, InitialState } from './store';
+import { ItemTypes } from './Tab';
 import { TabsProps } from './';
 
-export const Tabs: FC<PropsWithChildren<TabsProps>> = ({ children, ...props }) => {
-  const { state } = useDataContext();
-  const [collectedProps, drop] = useDrop(() => ({
+export const Tabs: FC<PropsWithChildren<TabsProps>> = ({ children, onTabClick, onTabDrop, ...props }) => {
+  const { state, dispatch } = useDataContext();
+  const [, drop] = useDrop(() => ({
     accept: ItemTypes.Tab,
   }));
+  const childLength = React.Children.toArray(children).length;
+  useEffect(() => {
+    if (childLength !== state.data?.length) {
+      const data: InitialState['data'] = [];
+      React.Children.toArray(children).forEach((item) => {
+        if (isValidElement(item)) {
+          data.push({ ...item.props, element: item });
+        }
+      });
+      dispatch!({ data });
+    }
+  }, [childLength]);
 
-  const renderCard = useCallback(({ text, ...item }: { id: string; text: React.ReactNode }, index: number) => {
-    return (
-      <Tab {...item} key={index} index={index}>
-        {text}
-      </Tab>
-    );
-  }, []);
   return (
     <div
       {...props}
@@ -24,7 +29,11 @@ export const Tabs: FC<PropsWithChildren<TabsProps>> = ({ children, ...props }) =
       className={`w-tabs-draggable ${props.className || ''}`}
       style={{ display: 'flex', ...props.style }}
     >
-      {state.data && state.data.length > 0 ? state.data.map((item, idx) => renderCard(item, idx)) : children}
+      {state.data && state.data.length > 0 && state.data.map(({ element, ...child }, idx) => {
+        if (isValidElement(element)) {
+          return React.cloneElement<any>(element, { ...child, onTabClick, onTabDrop, index: idx })
+        }
+      })}
     </div>
   );
 };

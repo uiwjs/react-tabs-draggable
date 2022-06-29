@@ -1,6 +1,7 @@
-import { FC, PropsWithChildren, useEffect, useRef } from 'react';
+import { FC, PropsWithChildren, useCallback, useRef, useState } from 'react';
 import update from 'immutability-helper';
 import { useDataContext } from './store';
+import { TabsProps } from './';
 import { useDrag, useDrop } from 'react-dnd';
 import type { Identifier, XYCoord } from 'dnd-core';
 
@@ -8,21 +9,20 @@ export const ItemTypes = {
   Tab: 'wtabs',
 };
 
-export interface TabProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+export interface TabProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, Pick<TabsProps, 'onTabClick' | 'onTabDrop'> {
   id: string;
   index?: number;
 }
 
-interface DragItem {
+export interface DragItem {
   index: number;
   id: string;
   type: string;
 }
 
-export const Tab: FC<PropsWithChildren<TabProps>> = ({ children, id, index, ...props }) => {
-  const { state, onTabClick, dispatch } = useDataContext();
+export const Tab: FC<PropsWithChildren<TabProps>> = ({ children, id, index, onTabClick, onTabDrop,  ...props }) => {
+  const { state, dispatch } = useDataContext();
   const ref = useRef<HTMLDivElement>(null);
-
   const [{ handlerId }, drop] = useDrop<DragItem, void, { handlerId: Identifier | null }>({
     accept: ItemTypes.Tab,
     collect(monitor) {
@@ -70,10 +70,15 @@ export const Tab: FC<PropsWithChildren<TabProps>> = ({ children, id, index, ...p
       item.index = hoverIndex;
     },
   });
-  const [{ isDragging, targetIds, data }, drag] = useDrag({
+  const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.Tab,
     item: () => {
       return { id, index };
+    },
+    end: (item) => {
+      onTabDrop && onTabDrop(id, item.index);
+      // dispatch!({ move: { id, index: item.index }});
+      // hanlde(id, item.index)
     },
     collect: (monitor) => {
       return {
@@ -82,22 +87,9 @@ export const Tab: FC<PropsWithChildren<TabProps>> = ({ children, id, index, ...p
         isDragging: monitor.isDragging(),
       };
     },
-  });
+  }), [ id, index ]);
 
-  // 搜集选项卡 props 数据。
-  useEffect(() => {
-    if (state.data) {
-      const tabItem = state.data.find((m) => m.id === id);
-      if (tabItem) {
-        dispatch!({ data: state.data.map((m) => (m.id === id ? { id, text: children, ...props } : m)) });
-      } else {
-        state.data.push({ id, text: children, ...props });
-        dispatch!({ data: state.data });
-      }
-    }
-  }, [children, id, index]);
-
-  const opacity = data && data.id === id ? 0.001 : 1;
+  const opacity = isDragging ? 0.001 : 1;
 
   if (props.draggable !== false) {
     drag(drop(ref));
@@ -105,11 +97,11 @@ export const Tab: FC<PropsWithChildren<TabProps>> = ({ children, id, index, ...p
   const handleClick = (evn: React.MouseEvent<HTMLDivElement>) => {
     dispatch!({ activeKey: id });
     onTabClick && onTabClick(id, evn);
-  };
+  }
   return (
     <div
       {...props}
-      onMouseDown={handleClick}
+      onClick={handleClick.bind(this)}
       ref={ref}
       style={{ ...props.style, opacity }}
       className={`w-tabs-draggable-item ${props.className || ''}${state.activeKey === id ? ' w-active' : ''}`}

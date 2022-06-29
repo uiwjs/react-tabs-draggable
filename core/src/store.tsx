@@ -1,11 +1,11 @@
 import React, { FC, createContext, PropsWithChildren, useContext, useReducer } from 'react';
-
-export interface InitialState {
+import { TabsProps } from './'
+export interface InitialState extends Pick<TabsProps, 'onTabClick' | 'onTabDrop'> {
   activeKey?: string;
-  onTabClick?: (id: string, evn: React.MouseEvent<HTMLDivElement>) => void;
   data?: Array<{
     id: string;
-    text: React.ReactNode;
+    children: React.ReactElement;
+    element: HTMLElement;
   }>;
 }
 

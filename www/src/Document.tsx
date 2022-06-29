@@ -20,7 +20,7 @@ export const Document = () => (
           const code = data.data[metaId].value || '';
           const param = getURLParameters(meta);
           return (
-            <CodeLayout toolbar={param.title || 'Example Preview'} code={<code {...rest} />} text={code}>
+            <CodeLayout disableCheckered toolbar={param.title || 'Example Preview'} code={<code {...rest} />} text={code}>
               <Child />
             </CodeLayout>
           );

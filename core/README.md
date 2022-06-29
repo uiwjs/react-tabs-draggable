@@ -16,7 +16,7 @@ npm install @uiw/react-tabs-draggable --save
 
 ## Usage
 
-```jsx mdx:preview
+```jsx  mdx:preview
 import React, { useState } from 'react';
 import Tabs, { Tab } from '@uiw/react-tabs-draggable';
 import styled from 'styled-components';
@@ -43,7 +43,11 @@ function App() {
 export default App;
 ```
 
-```jsx mdx:preview
+## Disable Draggable
+
+The first tab is disabled.
+
+```jsx  mdx:preview
 import React, { useState } from 'react';
 import Tabs, { Tab } from '@uiw/react-tabs-draggable';
 import styled from 'styled-components';
@@ -80,13 +84,13 @@ function App() {
 export default App;
 ```
 
-## Disable Draggable
+## Add & Close tab
 
 The first tab is disabled.
 
 ```jsx mdx:preview
-import React, { Fragment, useState } from 'react';
-import Tabs, { Tab } from '@uiw/react-tabs-draggable';
+import React, { Fragment, useState, useCallback } from 'react';
+import Tabs, { Tab, useDataContext } from '@uiw/react-tabs-draggable';
 import styled from 'styled-components';
 
 const TabIten = styled(Tab)`
@@ -104,18 +108,55 @@ const Content = styled.div`
   border-top: 1px solid #333;
 `;
 
+function insertAndShift(arr, from, to) {
+  let cutOut = arr.splice(from, 1)[0];
+  arr.splice(to, 0, cutOut);
+  return arr
+}
+
+let count = 5;
+
 function App() {
+  const [data, setData] = useState([
+    { id: "tab-3-1", children: 'Google' },
+    { id: "tab-3-2", children: 'MicroSoft' },
+    { id: "tab-3-3", children: 'Baidu' },
+    { id: "tab-3-4", children: 'Taobao' },
+    { id: "tab-3-5", children: 'JD' },
+  ]);
+  const [test, setTest] = useState(1);
   const [activeKey, setActiveKey] = useState('');
+
+  const tabClick = (id, evn) => {
+    evn.stopPropagation();
+    setActiveKey(id);
+  }
+  const closeHandle = (item, evn) => {
+    evn.stopPropagation();
+    setData(data.filter(m => m.id !== item.id))
+  }
+  const addHandle = () => {
+    ++count;
+    const newData = [...data, {  id: `tab-3-${count}`, children: `New Tab ${count}` }];
+    setData(newData)
+  }
+  const tabDrop = (id, index) => {
+    const oldIndex = [...data].findIndex((m) => m.id === id);
+    const newData = insertAndShift([...data], oldIndex, index);
+    setData(newData);
+  }
   return (
     <Fragment>
-      <Tabs style={{ gap: 3 }} onTabClick={(id) => setActiveKey(id)}>
-        <TabIten id="tab-2-1" draggable={false}>
-          Google
-        </TabIten>
-        <TabIten id="tab-2-2">MicroSoft</TabIten>
-        <TabIten id="tab-2-3">Baidu</TabIten>
-        <TabIten id="tab-2-4">Taobao</TabIten>
-        <TabIten id="tab-2-5">JD</TabIten>
+      <button onClick={addHandle}>Add{test}</button>
+      <Tabs style={{ gap: 3, overflow: 'auto' }} onTabClick={(id, evn) => tabClick(id, evn)} onTabDrop={(id, index) => tabDrop(id, index)}>
+        {data.map((m, idx) => {
+          return (
+            <TabIten key={idx} id={m.id} draggable={idx !== 0}>
+              {m.children}
+              <button onClick={(evn) => closeHandle(m, evn)}>x</button>
+            </TabIten>
+          );
+        })}
       </Tabs>
       <Content>{activeKey}</Content>
     </Fragment>
@@ -130,6 +171,10 @@ export default App;
 export interface TabsProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   activeKey?: string;
   onTabClick?: (id: string, evn: React.MouseEvent<HTMLDivElement>) => void;
+  /**
+   * Optional. Called when a compatible item is dropped on the target.
+   */
+  onTabDrop?: (id: string) => void;
 }
 export interface TabProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   id: string;
