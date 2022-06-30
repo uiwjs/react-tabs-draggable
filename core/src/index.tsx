@@ -6,6 +6,7 @@ import { Provider } from './store';
 import { useEventCallback } from './hooks';
 
 export * from './Tab';
+export * from './hooks';
 
 export interface TabsProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   activeKey?: string;
