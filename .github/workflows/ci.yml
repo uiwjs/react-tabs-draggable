@@ -6,7 +6,7 @@ on:
 
 
 jobs:
-  build-deploy:
+  build:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v3
@@ -74,7 +74,7 @@ jobs:
 
   github-package:
     runs-on: ubuntu-18.04
-    needs: build-deploy
+    needs: build
     if: needs.build.outputs.successful
     steps:
       - uses: actions/checkout@v3
@@ -100,7 +100,7 @@ jobs:
 
   npm-package:
     runs-on: ubuntu-18.04
-    needs: build-deploy
+    needs: build
     if: needs.build.outputs.successful
     steps:
       - uses: actions/checkout@v3
