@@ -17,16 +17,16 @@ export interface TabsProps extends React.DetailedHTMLProps<React.HTMLAttributes<
   onTabDrop?: (id: string, index?: number) => void;
 }
 
-const Container: FC<PropsWithChildren<TabsProps>> = ({ activeKey, onTabClick, onTabDrop, ...props }) => {
+const TabContainer: FC<PropsWithChildren<TabsProps>> = ({ activeKey, onTabClick, onTabDrop, ...props }) => {
   const tabClick = useEventCallback(onTabClick!);
   const tabDrop = useEventCallback(onTabDrop!);
   return (
     <DndProvider backend={HTML5Backend}>
       <Provider init={{ data: [], activeKey, onTabClick: tabClick, onTabDrop: tabDrop }}>
-        <Tabs {...props} />
+        <Tabs {...props} activeKey={activeKey} />
       </Provider>
     </DndProvider>
   );
 };
 
-export default Container;
+export default TabContainer;
