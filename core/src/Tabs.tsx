@@ -1,4 +1,4 @@
-import React, { FC, isValidElement, PropsWithChildren, useEffect, useLayoutEffect, useMemo } from 'react';
+import React, { FC, isValidElement, PropsWithChildren, useLayoutEffect } from 'react';
 import { useDrop } from 'react-dnd';
 import { useDataContext, InitialState } from './store';
 import { ItemTypes } from './Tab';
@@ -9,10 +9,6 @@ export const Tabs: FC<PropsWithChildren<TabsProps>> = ({ children, activeKey, ..
   const [, drop] = useDrop(() => ({
     accept: ItemTypes.Tab,
   }));
-
-  useMemo(() => {
-    dispatch!({ activeKey });
-  }, [activeKey]);
 
   useLayoutEffect(() => {
     if (children) {
