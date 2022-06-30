@@ -88,6 +88,22 @@ import React, { Fragment, useState, useCallback } from 'react';
 import Tabs, { Tab, useDataContext } from '@uiw/react-tabs-draggable';
 import styled from 'styled-components';
 
+const TabWarp = styled(Tabs)`
+  max-width: 450px;
+  border-bottom: 1px solid #333;
+  margin-bottom: -2px;
+  &:hover::-webkit-scrollbar {
+    height: 0px;
+    background-color: red;
+  }
+  &:hover::-webkit-scrollbar-track {
+    background-color: #333;
+  }
+  &:hover::-webkit-scrollbar-thumb {
+    background-color: green;
+  }
+`;
+
 const TabItem = styled(Tab)`
   background-color: #b9b9b9;
   padding: 3px 7px;
@@ -99,25 +115,25 @@ const TabItem = styled(Tab)`
   }
 `;
 
-const Content = styled.div`
-  border-top: 1px solid #333;
-`;
-
 function insertAndShift(arr, from, to) {
   let cutOut = arr.splice(from, 1)[0];
   arr.splice(to, 0, cutOut);
   return arr;
 }
 
-let count = 5;
+let count = 9;
 
 function App() {
   const [data, setData] = useState([
-    { id: 'tab-3-1', children: 'Google' },
-    { id: 'tab-3-2', children: 'MicroSoft' },
-    { id: 'tab-3-3', children: 'Baidu' },
-    { id: 'tab-3-4', children: 'Taobao' },
-    { id: 'tab-3-5', children: 'JD' },
+    { id: 'tab-4-1', children: 'Google' },
+    { id: 'tab-4-2', children: 'MicroSoft' },
+    { id: 'tab-4-3', children: 'Baidu' },
+    { id: 'tab-4-4', children: 'Taobao' },
+    { id: 'tab-4-5', children: 'JD' },
+    { id: 'tab-4-6', children: 'Apple' },
+    { id: 'tab-4-7', children: 'Bing' },
+    { id: 'tab-4-8', children: 'Gmail' },
+    { id: 'tab-4-9', children: 'Gitter' },
   ]);
   const [test, setTest] = useState(1);
   const [activeKey, setActiveKey] = useState('');
@@ -143,8 +159,8 @@ function App() {
   };
   return (
     <Fragment>
-      <button onClick={addHandle}>Add{test}</button>
-      <Tabs
+      <button onClick={addHandle}>Add{count}</button>
+      <TabWarp
         style={{ gap: 3, overflow: 'auto' }}
         onTabClick={(id, evn) => tabClick(id, evn)}
         onTabDrop={(id, index) => tabDrop(id, index)}
@@ -157,8 +173,8 @@ function App() {
             </TabItem>
           );
         })}
-      </Tabs>
-      <Content>{activeKey}</Content>
+      </TabWarp>
+      <div>{activeKey}</div>
     </Fragment>
   );
 }
@@ -170,19 +186,29 @@ import React, { Fragment, useState, useCallback } from 'react';
 import Tabs, { Tab, useDataContext } from '@uiw/react-tabs-draggable';
 import styled from 'styled-components';
 
+const TabWarp = styled(Tabs)`
+  max-width: 450px;
+  border-bottom: 1px solid #333;
+  margin-bottom: -2px;
+  gap: 3px;
+`;
+
 const TabItem = styled(Tab)`
   background-color: #b9b9b9;
   padding: 3px 7px;
   border-radius: 5px 5px 0 0;
   user-select: none;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  word-break: keep-all;
+  align-items: center;
+  display: flex;
+  position: relative;
+  flex-direction: row;
   &.w-active {
     color: #fff;
     background-color: #333;
   }
-`;
-
-const Content = styled.div`
-  border-top: 1px solid #333;
 `;
 
 function insertAndShift(arr, from, to) {
@@ -191,19 +217,19 @@ function insertAndShift(arr, from, to) {
   return arr;
 }
 
-let count = 5;
+let count = 9;
 
 function App() {
   const [data, setData] = useState([
-    { id: 'tab-3-1', children: 'Google' },
-    { id: 'tab-3-2', children: 'MicroSoft' },
-    { id: 'tab-3-3', children: 'Baidu' },
-    { id: 'tab-3-4', children: 'Taobao' },
-    { id: 'tab-3-5', children: 'JD' },
-    { id: 'tab-3-6', children: 'Apple' },
-    { id: 'tab-3-7', children: 'Bing' },
-    { id: 'tab-3-8', children: 'Gmail' },
-    { id: 'tab-3-9', children: 'Gitter' },
+    { id: 'tab-4-1', children: 'Google' },
+    { id: 'tab-4-2', children: 'MicroSoft' },
+    { id: 'tab-4-3', children: 'Baidu' },
+    { id: 'tab-4-4', children: 'Taobao' },
+    { id: 'tab-4-5', children: 'JD' },
+    { id: 'tab-4-6', children: 'Apple' },
+    { id: 'tab-4-7', children: 'Bing' },
+    { id: 'tab-4-8', children: 'Gmail' },
+    { id: 'tab-4-9', children: 'Gitter' },
   ]);
   const [test, setTest] = useState(1);
   const [activeKey, setActiveKey] = useState('');
@@ -229,22 +255,18 @@ function App() {
   };
   return (
     <Fragment>
-      <button onClick={addHandle}>Add{test}</button>
-      <Tabs
-        style={{ gap: 3, overflow: 'auto' }}
-        onTabClick={(id, evn) => tabClick(id, evn)}
-        onTabDrop={(id, index) => tabDrop(id, index)}
-      >
+      <button onClick={addHandle}>Add{count}</button>
+      <TabWarp style={{}} onTabClick={(id, evn) => tabClick(id, evn)} onTabDrop={(id, index) => tabDrop(id, index)}>
         {data.map((m, idx) => {
           return (
-            <TabItem key={idx} id={m.id} draggable={idx !== 0}>
+            <TabItem key={idx} id={m.id}>
               {m.children}
               <button onClick={(evn) => closeHandle(m, evn)}>x</button>
             </TabItem>
           );
         })}
-      </Tabs>
-      <Content>{activeKey}</Content>
+      </TabWarp>
+      <div>{activeKey}</div>
     </Fragment>
   );
 }
