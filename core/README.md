@@ -145,6 +145,13 @@ function App() {
   };
   const closeHandle = (item, evn) => {
     evn.stopPropagation();
+    const idx = data.findIndex((m) => m.id === item.id);
+
+    let active = '';
+    if (idx > -1 && activeKey) {
+      active = data[idx - 1] ? data[idx - 1].id : data[idx].id;
+      setActiveKey(active || '');
+    }
     setData(data.filter((m) => m.id !== item.id));
   };
   const addHandle = () => {
@@ -161,6 +168,7 @@ function App() {
     <Fragment>
       <button onClick={addHandle}>Add{count}</button>
       <TabWarp
+        activeKey={activeKey}
         style={{ gap: 3, overflow: 'auto' }}
         onTabClick={(id, evn) => tabClick(id, evn)}
         onTabDrop={(id, index) => tabDrop(id, index)}
@@ -256,7 +264,7 @@ function App() {
   return (
     <Fragment>
       <button onClick={addHandle}>Add{count}</button>
-      <TabWarp style={{}} onTabClick={(id, evn) => tabClick(id, evn)} onTabDrop={(id, index) => tabDrop(id, index)}>
+      <TabWarp onTabClick={(id, evn) => tabClick(id, evn)} onTabDrop={(id, index) => tabDrop(id, index)}>
         {data.map((m, idx) => {
           return (
             <TabItem key={idx} id={m.id}>
