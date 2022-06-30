@@ -1,17 +1,17 @@
-import React, { FC, isValidElement, PropsWithChildren, useCallback, useEffect } from 'react';
+import React, { FC, isValidElement, PropsWithChildren, useLayoutEffect } from 'react';
 import { useDrop } from 'react-dnd';
 import { useDataContext, InitialState } from './store';
 import { ItemTypes } from './Tab';
 import { TabsProps } from './';
 
-export const Tabs: FC<PropsWithChildren<TabsProps>> = ({ children, onTabClick, onTabDrop, ...props }) => {
+export const Tabs: FC<PropsWithChildren<TabsProps>> = ({ children, ...props }) => {
   const { state, dispatch } = useDataContext();
   const [, drop] = useDrop(() => ({
     accept: ItemTypes.Tab,
   }));
-  const childLength = React.Children.toArray(children).length;
-  useEffect(() => {
-    if (childLength !== state.data?.length) {
+
+  useLayoutEffect(() => {
+    if (children) {
       const data: InitialState['data'] = [];
       React.Children.toArray(children).forEach((item) => {
         if (isValidElement(item)) {
@@ -20,7 +20,7 @@ export const Tabs: FC<PropsWithChildren<TabsProps>> = ({ children, onTabClick, o
       });
       dispatch!({ data });
     }
-  }, [childLength]);
+  }, [children]);
 
   return (
     <div
@@ -33,7 +33,7 @@ export const Tabs: FC<PropsWithChildren<TabsProps>> = ({ children, onTabClick, o
         state.data.length > 0 &&
         state.data.map(({ element, ...child }, idx) => {
           if (isValidElement(element)) {
-            return React.cloneElement<any>(element, { ...child, onTabClick, onTabDrop, index: idx });
+            return React.cloneElement<any>(element, { ...child, index: idx });
           }
         })}
     </div>

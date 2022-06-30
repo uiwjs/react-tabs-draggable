@@ -14,27 +14,22 @@ Draggable tabs for React. Demo Preview: [@uiwjs.github.io/react-tabs-draggable](
 npm install @uiw/react-tabs-draggable --save
 ```
 
-## Usage
+## Base Usage
 
 ```jsx mdx:preview
 import React, { useState } from 'react';
 import Tabs, { Tab } from '@uiw/react-tabs-draggable';
-import styled from 'styled-components';
-
-const Content = styled.div`
-  border-top: 1px solid #333;
-`;
 
 function App() {
   const [activeKey, setActiveKey] = useState('tab-1');
   return (
     <div>
-      <Tabs activeKey={activeKey} style={{ gap: 6 }} onTabClick={(id) => setActiveKey(id)}>
-        <Tab id="tab-1">Google</Tab>
-        <Tab id="tab-2">MicroSoft</Tab>
-        <Tab id="tab-3">Baidu</Tab>
-        <Tab id="tab-4">Taobao</Tab>
-        <Tab id="tab-5">JD</Tab>
+      <Tabs activeKey={activeKey} style={{ gap: 12 }} onTabClick={(id) => setActiveKey(id)}>
+        <Tab id="tab-1">{activeKey === 'tab-1' && '▶'}Google</Tab>
+        <Tab id="tab-2">{activeKey === 'tab-2' && '▶'}MicroSoft</Tab>
+        <Tab id="tab-3">{activeKey === 'tab-3' && '▶'}Baidu</Tab>
+        <Tab id="tab-4">{activeKey === 'tab-4' && '▶'}Taobao</Tab>
+        <Tab id="tab-5">{activeKey === 'tab-5' && '▶'}JD</Tab>
       </Tabs>
       <div style={{ background: '#fff', padding: 12 }}>{activeKey}</div>
     </div>
@@ -52,7 +47,7 @@ import React, { useState } from 'react';
 import Tabs, { Tab } from '@uiw/react-tabs-draggable';
 import styled from 'styled-components';
 
-const TabIten = styled(Tab)`
+const TabItem = styled(Tab)`
   background-color: #b9b9b9;
   padding: 3px 7px;
   border-radius: 5px 5px 0 0;
@@ -71,11 +66,11 @@ function App() {
   return (
     <div>
       <Tabs activeKey={activeKey} style={{ gap: 6 }} onTabClick={(id) => setActiveKey(id)}>
-        <TabIten id="tab-0-1">Google</TabIten>
-        <TabIten id="tab-0-2">MicroSoft</TabIten>
-        <TabIten id="tab-0-3">Baidu</TabIten>
-        <TabIten id="tab-0-4">Taobao</TabIten>
-        <TabIten id="tab-0-5">JD</TabIten>
+        <TabItem id="tab-0-1">Google</TabItem>
+        <TabItem id="tab-0-2">MicroSoft</TabItem>
+        <TabItem id="tab-0-3">Baidu</TabItem>
+        <TabItem id="tab-0-4">Taobao</TabItem>
+        <TabItem id="tab-0-5">JD</TabItem>
       </Tabs>
       <Content>{activeKey}</Content>
     </div>
@@ -93,7 +88,7 @@ import React, { Fragment, useState, useCallback } from 'react';
 import Tabs, { Tab, useDataContext } from '@uiw/react-tabs-draggable';
 import styled from 'styled-components';
 
-const TabIten = styled(Tab)`
+const TabItem = styled(Tab)`
   background-color: #b9b9b9;
   padding: 3px 7px;
   border-radius: 5px 5px 0 0;
@@ -130,6 +125,7 @@ function App() {
   const tabClick = (id, evn) => {
     evn.stopPropagation();
     setActiveKey(id);
+    setTest(test + 1);
   };
   const closeHandle = (item, evn) => {
     evn.stopPropagation();
@@ -155,10 +151,96 @@ function App() {
       >
         {data.map((m, idx) => {
           return (
-            <TabIten key={idx} id={m.id} draggable={idx !== 0}>
+            <TabItem key={idx} id={m.id} draggable={idx !== 0}>
               {m.children}
               <button onClick={(evn) => closeHandle(m, evn)}>x</button>
-            </TabIten>
+            </TabItem>
+          );
+        })}
+      </Tabs>
+      <Content>{activeKey}</Content>
+    </Fragment>
+  );
+}
+export default App;
+```
+
+```jsx mdx:preview
+import React, { Fragment, useState, useCallback } from 'react';
+import Tabs, { Tab, useDataContext } from '@uiw/react-tabs-draggable';
+import styled from 'styled-components';
+
+const TabItem = styled(Tab)`
+  background-color: #b9b9b9;
+  padding: 3px 7px;
+  border-radius: 5px 5px 0 0;
+  user-select: none;
+  &.w-active {
+    color: #fff;
+    background-color: #333;
+  }
+`;
+
+const Content = styled.div`
+  border-top: 1px solid #333;
+`;
+
+function insertAndShift(arr, from, to) {
+  let cutOut = arr.splice(from, 1)[0];
+  arr.splice(to, 0, cutOut);
+  return arr;
+}
+
+let count = 5;
+
+function App() {
+  const [data, setData] = useState([
+    { id: 'tab-3-1', children: 'Google' },
+    { id: 'tab-3-2', children: 'MicroSoft' },
+    { id: 'tab-3-3', children: 'Baidu' },
+    { id: 'tab-3-4', children: 'Taobao' },
+    { id: 'tab-3-5', children: 'JD' },
+    { id: 'tab-3-6', children: 'Apple' },
+    { id: 'tab-3-7', children: 'Bing' },
+    { id: 'tab-3-8', children: 'Gmail' },
+    { id: 'tab-3-9', children: 'Gitter' },
+  ]);
+  const [test, setTest] = useState(1);
+  const [activeKey, setActiveKey] = useState('');
+
+  const tabClick = (id, evn) => {
+    evn.stopPropagation();
+    setActiveKey(id);
+    setTest(test + 1);
+  };
+  const closeHandle = (item, evn) => {
+    evn.stopPropagation();
+    setData(data.filter((m) => m.id !== item.id));
+  };
+  const addHandle = () => {
+    ++count;
+    const newData = [...data, { id: `tab-3-${count}`, children: `New Tab ${count}` }];
+    setData(newData);
+  };
+  const tabDrop = (id, index) => {
+    const oldIndex = [...data].findIndex((m) => m.id === id);
+    const newData = insertAndShift([...data], oldIndex, index);
+    setData(newData);
+  };
+  return (
+    <Fragment>
+      <button onClick={addHandle}>Add{test}</button>
+      <Tabs
+        style={{ gap: 3, overflow: 'auto' }}
+        onTabClick={(id, evn) => tabClick(id, evn)}
+        onTabDrop={(id, index) => tabDrop(id, index)}
+      >
+        {data.map((m, idx) => {
+          return (
+            <TabItem key={idx} id={m.id} draggable={idx !== 0}>
+              {m.children}
+              <button onClick={(evn) => closeHandle(m, evn)}>x</button>
+            </TabItem>
           );
         })}
       </Tabs>

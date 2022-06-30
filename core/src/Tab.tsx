@@ -9,9 +9,7 @@ export const ItemTypes = {
   Tab: 'wtabs',
 };
 
-export interface TabProps
-  extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-    Pick<TabsProps, 'onTabClick' | 'onTabDrop'> {
+export interface TabProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   id: string;
   index?: number;
 }
@@ -22,8 +20,8 @@ export interface DragItem {
   type: string;
 }
 
-export const Tab: FC<PropsWithChildren<TabProps>> = ({ children, id, index, onTabClick, onTabDrop, ...props }) => {
-  const { state, dispatch } = useDataContext();
+export const Tab: FC<PropsWithChildren<TabProps>> = ({ children, id, index, ...props }) => {
+  const { state, onTabClick, onTabDrop, dispatch } = useDataContext();
   const ref = useRef<HTMLDivElement>(null);
   const [{ handlerId }, drop] = useDrop<DragItem, void, { handlerId: Identifier | null }>({
     accept: ItemTypes.Tab,
@@ -80,8 +78,6 @@ export const Tab: FC<PropsWithChildren<TabProps>> = ({ children, id, index, onTa
       },
       end: (item) => {
         onTabDrop && onTabDrop(id, item.index);
-        // dispatch!({ move: { id, index: item.index }});
-        // hanlde(id, item.index)
       },
       collect: (monitor) => {
         return {
