@@ -76,8 +76,9 @@ export const Tab: FC<PropsWithChildren<TabProps>> = ({ children, id, index, ...p
       item: () => {
         return { id, index };
       },
-      end: (item) => {
-        onTabDrop && onTabDrop(id, item.index);
+      end: (item, monitor) => {
+        const clientOffset = monitor.getClientOffset();
+        onTabDrop && onTabDrop(id, item.index, clientOffset);
       },
       collect: (monitor) => {
         return {

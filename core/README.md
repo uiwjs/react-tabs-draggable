@@ -256,7 +256,7 @@ function App() {
     const newData = [...data, { id: `tab-3-${count}`, children: `New Tab ${count}` }];
     setData(newData);
   };
-  const tabDrop = (id, index) => {
+  const tabDrop = (id, index, offset) => {
     const oldIndex = [...data].findIndex((m) => m.id === id);
     const newData = insertAndShift([...data], oldIndex, index);
     setData(newData);
@@ -264,7 +264,10 @@ function App() {
   return (
     <Fragment>
       <button onClick={addHandle}>Add{count}</button>
-      <TabWarp onTabClick={(id, evn) => tabClick(id, evn)} onTabDrop={(id, index) => tabDrop(id, index)}>
+      <TabWarp
+        onTabClick={(id, evn) => tabClick(id, evn)}
+        onTabDrop={(id, index, offset) => tabDrop(id, index, offset)}
+      >
         {data.map((m, idx) => {
           return (
             <TabItem key={idx} id={m.id}>
@@ -290,7 +293,7 @@ export interface TabsProps extends React.DetailedHTMLProps<React.HTMLAttributes<
   /**
    * Optional. Called when a compatible item is dropped on the target.
    */
-  onTabDrop?: (id: string) => void;
+  onTabDrop?: (id: string, index?: number, offset?: XYCoord | null) => void;
 }
 export interface TabProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   id: string;
