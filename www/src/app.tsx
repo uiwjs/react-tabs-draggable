@@ -1,9 +1,12 @@
 import GitHubCorners from '@uiw/react-github-corners';
 import styled from 'styled-components';
+import BackToUp from '@uiw/react-back-to-top';
 import '@wcj/dark-mode';
 import { Document } from './Document';
 
-const Warpper = styled.div``;
+const Warpper = styled.div`
+  padding-bottom: 120px;
+`;
 
 const Content = styled.div`
   max-width: 980px;
@@ -14,6 +17,7 @@ export const App = () => {
   return (
     <Warpper>
       <GitHubCorners target="__blank" fixed href="https://github.com/uiwjs/react-tabs-draggable" />
+      <BackToUp>Top</BackToUp>
       <dark-mode permanent></dark-mode>
       <Content>
         <Document />
