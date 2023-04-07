@@ -29,7 +29,7 @@
     "@wcj/dark-mode": "~1.0.12",
     "markdown-react-code-preview-loader": "^2.1.2",
     "react": "~18.2.0",
-    "react-code-preview-layout": "^2.0.5",
+    "react-code-preview-layout": "^3.0.0",
     "react-dom": "~18.2.0",
     "react-router-dom": "^6.3.0",
     "styled-components": "^5.3.5"

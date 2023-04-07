@@ -3,6 +3,10 @@ import CodeLayout from 'react-code-preview-layout';
 import MarkdownPreview from '@uiw/react-markdown-preview';
 import { getMetaId, isMeta, getURLParameters } from 'markdown-react-code-preview-loader';
 
+const Preview = CodeLayout.Preview;
+const Code = CodeLayout.Code;
+const Toolbar = CodeLayout.Toolbar;
+
 export const Document = () => (
   <MarkdownPreview
     disableCopy={true}
@@ -20,13 +24,12 @@ export const Document = () => (
           const code = data.data[metaId].value || '';
           const param = getURLParameters(meta);
           return (
-            <CodeLayout
-              disableCheckered
-              toolbar={param.title || 'Example Preview'}
-              code={<code {...rest} />}
-              text={code}
-            >
-              <Child />
+            <CodeLayout>
+              <Preview>
+                <Child />
+              </Preview>
+              <Toolbar>{param.title || 'Example Preview'}</Toolbar>
+              <Code>{code}</Code>
             </CodeLayout>
           );
         }
