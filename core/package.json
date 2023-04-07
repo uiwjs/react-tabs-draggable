@@ -7,9 +7,10 @@
   "license": "MIT",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
+  "types": "./esm/index.d.ts",
   "scripts": {
-    "watch": "tsbb watch",
-    "build": "tsbb build",
+    "watch": "tsbb watch src/*.tsx --use-babel",
+    "build": "tsbb build src/*.tsx --use-babel",
     "test": "tsbb test --env=jsdom",
     "coverage": "tsbb test --env=jsdom --coverage --bail"
   },
