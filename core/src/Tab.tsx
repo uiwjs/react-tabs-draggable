@@ -12,7 +12,7 @@ export const ItemTypes = {
 export interface TabProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   id: string;
   index?: number;
-  AxisYType?: boolean; //Y轴是否可上下拖动
+  yAxisType?: boolean; //Y轴是否可上下拖动
 }
 
 export interface DragItem {
@@ -21,7 +21,7 @@ export interface DragItem {
   type: string;
 }
 
-export const Tab: FC<PropsWithChildren<TabProps>> = ({ children, id, index, AxisYType = false, ...props }) => {
+export const Tab: FC<PropsWithChildren<TabProps>> = ({ children, id, index, yAxisType = false, ...props }) => {
   const { state, onTabClick, onTabDrop, dispatch } = useDataContext();
   const ref = useRef<HTMLDivElement>(null);
   const [{ handlerId }, drop] = useDrop<DragItem, void, { handlerId: Identifier | null }>({
@@ -54,7 +54,7 @@ export const Tab: FC<PropsWithChildren<TabProps>> = ({ children, id, index, Axis
       // When dragging downwards, only move when the cursor is below 50%
       // When dragging upwards, only move when the cursor is above 50%
       // Dragging downwards
-      if (dragIndex < hoverIndex && hoverClientX < hoverMiddleX && AxisYType !== true) {
+      if (dragIndex < hoverIndex && hoverClientX < hoverMiddleX && yAxisType !== true) {
         return;
       }
       // Dragging upwards
