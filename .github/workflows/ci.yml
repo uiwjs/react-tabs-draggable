@@ -95,6 +95,7 @@ jobs:
           node -e 'var pkg = require("./package.json"); pkg.name="@uiwjs/react-tabs-draggable"; require("fs").writeFileSync("./package.json", JSON.stringify(pkg, null, 2))'
 
       - run: npm publish
+        name: 📦 @uiwjs/react-tabs-draggable publish to NPM
         working-directory: core
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
@@ -108,12 +109,13 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
+          registry-url: 'https://registry.npmjs.org'
 
       - run: npm install
       - run: npm run build
 
-      - name: 📦 @uiw/react-tabs-draggable publish to NPM
-        uses: JS-DevTools/npm-publish@v1
-        with:
-          token: ${{ secrets.NPM_TOKEN }}
-          package: ./core/package.json
+      - run: npm publish
+        name: 📦 @uiw/react-tabs-draggable publish to NPM
+        working-directory: core
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
