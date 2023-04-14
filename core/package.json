@@ -19,6 +19,7 @@
     "url": "https://github.com/uiwjs/react-tabs-draggable.git"
   },
   "files": [
+    "README.md",
     "dist",
     "src",
     "esm",
