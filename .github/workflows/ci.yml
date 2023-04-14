@@ -96,6 +96,7 @@ jobs:
       - run: npm publish
         name: 📦 @uiwjs/react-tabs-draggable publish to NPM
         working-directory: core
+        continue-on-error: true
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
@@ -115,5 +116,6 @@ jobs:
       - run: npm publish
         name: 📦 @uiw/react-tabs-draggable publish to NPM
         working-directory: core
+        continue-on-error: true
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
