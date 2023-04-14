@@ -1,7 +1,6 @@
-import { FC, PropsWithChildren, useCallback, useRef, useState } from 'react';
+import { FC, PropsWithChildren, useRef } from 'react';
 import update from 'immutability-helper';
 import { useDataContext } from './store';
-import { TabsProps } from './';
 import { useDrag, useDrop } from 'react-dnd';
 import type { Identifier, XYCoord } from 'dnd-core';
 
@@ -12,7 +11,8 @@ export const ItemTypes = {
 export interface TabProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   id: string;
   index?: number;
-  dragableY?: boolean; //Y轴是否可上下拖动
+  /** Whether the Y axis can be dragged */
+  dragableY?: boolean;
 }
 
 export interface DragItem {

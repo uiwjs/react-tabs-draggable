@@ -298,6 +298,8 @@ export interface TabsProps extends React.DetailedHTMLProps<React.HTMLAttributes<
 export interface TabProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   id: string;
   index?: number;
+  /** Whether the Y axis can be dragged */
+  dragableY?: boolean;
 }
 export declare const Tab: FC<PropsWithChildren<TabProps>>;
 ```
