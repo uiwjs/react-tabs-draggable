@@ -18,7 +18,7 @@ export const App = () => {
     <Warpper>
       <GitHubCorners target="__blank" fixed href="https://github.com/uiwjs/react-tabs-draggable" />
       <BackToUp>Top</BackToUp>
-      <dark-mode permanent></dark-mode>
+      <dark-mode permanent style={{ fontSize: 24 }}></dark-mode>
       <Content>
         <Document />
       </Content>

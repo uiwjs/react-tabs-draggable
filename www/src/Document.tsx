@@ -28,8 +28,10 @@ export const Document = () => (
               <Preview>
                 <Child />
               </Preview>
-              <Toolbar>{param.title || 'Example Preview'}</Toolbar>
-              <Code>{code}</Code>
+              <Toolbar text={code}>{param.title || 'Example Preview'}</Toolbar>
+              <Code>
+                <code {...rest} />
+              </Code>
             </CodeLayout>
           );
         }
