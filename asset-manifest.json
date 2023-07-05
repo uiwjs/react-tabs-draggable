@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/react-tabs-draggable/static/css/main.3781713f.css",
-    "main.js": "/react-tabs-draggable/static/js/main.3d3d6c8e.js",
-    "refractor-vendor.js": "/react-tabs-draggable/static/js/refractor-vendor.32a1a0ca.js",
-    "react-vendor.js": "/react-tabs-draggable/static/js/react-vendor.79aa022a.js",
+    "main.css": "/react-tabs-draggable/static/css/main.5bb9e363.css",
+    "main.js": "/react-tabs-draggable/static/js/main.50fea544.js",
+    "refractor-vendor.js": "/react-tabs-draggable/static/js/refractor-vendor.bffefd2d.js",
+    "react-vendor.js": "/react-tabs-draggable/static/js/react-vendor.83888bb4.js",
     "index.html": "/react-tabs-draggable/index.html",
-    "main.3781713f.css.map": "/react-tabs-draggable/static/css/main.3781713f.css.map",
-    "main.3d3d6c8e.js.map": "/react-tabs-draggable/static/js/main.3d3d6c8e.js.map",
-    "refractor-vendor.32a1a0ca.js.map": "/react-tabs-draggable/static/js/refractor-vendor.32a1a0ca.js.map",
-    "react-vendor.79aa022a.js.map": "/react-tabs-draggable/static/js/react-vendor.79aa022a.js.map"
+    "main.5bb9e363.css.map": "/react-tabs-draggable/static/css/main.5bb9e363.css.map",
+    "main.50fea544.js.map": "/react-tabs-draggable/static/js/main.50fea544.js.map",
+    "refractor-vendor.bffefd2d.js.map": "/react-tabs-draggable/static/js/refractor-vendor.bffefd2d.js.map",
+    "react-vendor.83888bb4.js.map": "/react-tabs-draggable/static/js/react-vendor.83888bb4.js.map"
   },
   "entrypoints": [
-    "static/js/refractor-vendor.32a1a0ca.js",
-    "static/js/react-vendor.79aa022a.js",
-    "static/css/main.3781713f.css",
-    "static/js/main.3d3d6c8e.js"
+    "static/js/refractor-vendor.bffefd2d.js",
+    "static/js/react-vendor.83888bb4.js",
+    "static/css/main.5bb9e363.css",
+    "static/js/main.50fea544.js"
   ]
 }
