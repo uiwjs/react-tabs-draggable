@@ -31,7 +31,7 @@
     "@kkt/less-modules": "^7.2.0",
     "husky": "~8.0.0",
     "kkt": "^7.2.0",
-    "lerna": "^6.6.1",
+    "lerna": "^7.1.1",
     "lint-staged": "^13.2.0",
     "prettier": "^2.8.7",
     "tsbb": "^4.1.4"
