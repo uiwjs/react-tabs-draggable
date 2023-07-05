@@ -1,12 +1,12 @@
 {
   "files": {
     "main.css": "/react-tabs-draggable/static/css/main.5bb9e363.css",
-    "main.js": "/react-tabs-draggable/static/js/main.50fea544.js",
+    "main.js": "/react-tabs-draggable/static/js/main.d04a44b6.js",
     "refractor-vendor.js": "/react-tabs-draggable/static/js/refractor-vendor.bffefd2d.js",
     "react-vendor.js": "/react-tabs-draggable/static/js/react-vendor.83888bb4.js",
     "index.html": "/react-tabs-draggable/index.html",
     "main.5bb9e363.css.map": "/react-tabs-draggable/static/css/main.5bb9e363.css.map",
-    "main.50fea544.js.map": "/react-tabs-draggable/static/js/main.50fea544.js.map",
+    "main.d04a44b6.js.map": "/react-tabs-draggable/static/js/main.d04a44b6.js.map",
     "refractor-vendor.bffefd2d.js.map": "/react-tabs-draggable/static/js/refractor-vendor.bffefd2d.js.map",
     "react-vendor.83888bb4.js.map": "/react-tabs-draggable/static/js/react-vendor.83888bb4.js.map"
   },
@@ -14,6 +14,6 @@
     "static/js/refractor-vendor.bffefd2d.js",
     "static/js/react-vendor.83888bb4.js",
     "static/css/main.5bb9e363.css",
-    "static/js/main.50fea544.js"
+    "static/js/main.d04a44b6.js"
   ]
 }
