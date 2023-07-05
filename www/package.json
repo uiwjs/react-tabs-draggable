@@ -1,7 +1,7 @@
 {
   "name": "www",
   "private": true,
-  "version": "0.0.11",
+  "version": "1.0.0",
   "description": "Draggable vscode-like tabs for React.",
   "homepage": "https://uiwjs.github.io/react-tabs-draggable",
   "license": "MIT",
@@ -13,7 +13,6 @@
     "@kkt/less-modules": "^7.5.2",
     "@kkt/raw-modules": "^7.5.2",
     "@kkt/scope-plugin-options": "^7.5.2",
-    "@types/katex": "~0.14.0",
     "@types/react": "~18.2.0",
     "@types/react-dom": "~18.2.0",
     "kkt": "^7.5.2"
@@ -23,7 +22,7 @@
     "@uiw/react-github-corners": "~1.5.14",
     "@uiw/react-markdown-preview": "^4.1.10",
     "@uiw/react-shields": "~1.1.3",
-    "@uiw/react-tabs-draggable": "0.0.11",
+    "@uiw/react-tabs-draggable": "1.0.0",
     "@uiw/reset.css": "~1.0.5",
     "@wcj/dark-mode": "~1.0.12",
     "markdown-react-code-preview-loader": "^2.1.2",
