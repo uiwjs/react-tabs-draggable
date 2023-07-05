@@ -70,52 +70,59 @@ jobs:
 
             ${{ steps.changelog.outputs.changelog }}
 
-    outputs:
-      successful: ${{steps.create_tag.outputs.successful }}
-
-  github-package:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          registry-url: https://npm.pkg.github.com
-          scope: '@uiwjs'
-
-      - run: npm install
-      - run: npm run build
-
-      - name: Modify package name
-        working-directory: core
-        shell: bash
-        run: |
-          node -e 'var pkg = require("./package.json"); pkg.name="@uiwjs/react-tabs-draggable"; require("fs").writeFileSync("./package.json", JSON.stringify(pkg, null, 2))'
-
-      - run: npm publish
-        name: 📦 @uiwjs/react-tabs-draggable publish to NPM
-        working-directory: core
-        continue-on-error: true
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-
-  npm-package:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          registry-url: 'https://registry.npmjs.org'
-
-      - run: npm install
-      - run: npm run build
-
       - run: npm publish
         name: 📦 @uiw/react-tabs-draggable publish to NPM
         working-directory: core
         continue-on-error: true
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
+    outputs:
+      successful: ${{steps.create_tag.outputs.successful }}
+
+  # github-package:
+  #   runs-on: ubuntu-latest
+  #   needs: build
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - uses: actions/setup-node@v3
+  #       with:
+  #         node-version: 16
+  #         registry-url: https://npm.pkg.github.com
+  #         scope: '@uiwjs'
+
+  #     - run: npm install
+  #     - run: npm run build
+
+  #     - name: Modify package name
+  #       working-directory: core
+  #       shell: bash
+  #       run: |
+  #         node -e 'var pkg = require("./package.json"); pkg.name="@uiwjs/react-tabs-draggable"; require("fs").writeFileSync("./package.json", JSON.stringify(pkg, null, 2))'
+
+  #     - run: npm publish
+  #       name: 📦 @uiwjs/react-tabs-draggable publish to NPM
+  #       working-directory: core
+  #       continue-on-error: true
+  #       env:
+  #         NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+  # npm-package:
+  #   runs-on: ubuntu-latest
+  #   needs: build
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - uses: actions/setup-node@v3
+  #       with:
+  #         node-version: 16
+  #         registry-url: 'https://registry.npmjs.org'
+
+  #     - run: npm install
+  #     - run: npm run build
+
+  #     - run: npm publish
+  #       name: 📦 @uiw/react-tabs-draggable publish to NPM
+  #       working-directory: core
+  #       continue-on-error: true
+  #       env:
+  #         NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
