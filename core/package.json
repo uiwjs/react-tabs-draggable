@@ -1,6 +1,6 @@
 {
   "name": "@uiw/react-tabs-draggable",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Draggable tabs for React.",
   "homepage": "https://uiwjs.github.io/react-tabs-draggable",
   "author": "kenny wong <wowohoo@qq.com>",
