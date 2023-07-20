@@ -1,5 +1,5 @@
 import { DndProvider } from 'react-dnd';
-import { FC, PropsWithChildren, useEffect, useState } from 'react';
+import { FC, PropsWithChildren } from 'react';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { Tabs } from './Tabs';
 import { Provider } from './store';
@@ -23,7 +23,7 @@ const TabContainer: FC<PropsWithChildren<TabsProps>> = ({ activeKey, onTabClick,
   const tabDrop = useEventCallback(onTabDrop!);
 
   return (
-    <DndProvider backend={HTML5Backend}>
+    <DndProvider backend={HTML5Backend} context={window}>
       <Provider init={{ data: [], activeKey, onTabClick: tabClick, onTabDrop: tabDrop }}>
         <Tabs {...props} activeKey={activeKey} />
       </Provider>
