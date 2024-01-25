@@ -28,7 +28,7 @@
   "devDependencies": {
     "@kkt/ncc": "^1.0.15",
     "@kkt/less-modules": "^7.5.2",
-    "husky": "~8.0.3",
+    "husky": "~9.0.0",
     "kkt": "^7.5.2",
     "lerna": "^7.1.4",
     "lint-staged": "^13.2.3",
