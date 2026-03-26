@@ -10,16 +10,16 @@
   "devDependencies": {
     "@kkt/raw-modules": "^7.5.2",
     "@kkt/scope-plugin-options": "^7.5.2",
-    "@types/react": "~18.2.0",
-    "@types/react-dom": "~18.2.0",
+    "@types/react": "~19.1.0",
+    "@types/react-dom": "~19.1.0",
     "kkt": "^7.5.2",
     "markdown-react-code-preview-loader": "^2.1.2"
   },
   "dependencies": {
     "@uiw/react-markdown-preview-example": "^1.5.3",
     "@uiw/react-tabs-draggable": "1.0.1",
-    "react": "~18.2.0",
-    "react-dom": "~18.2.0",
+    "react": "~19.1.0",
+    "react-dom": "~19.1.0",
     "react-router-dom": "^6.14.2"
   },
   "eslintConfig": {
