@@ -1,9 +1,8 @@
 {
   "extends": "../tsconfig",
-  "include": ["./src"],
+  "include": [".kktrc.ts", "src"],
   "compilerOptions": {
-    "baseUrl": ".",
-    "emitDeclarationOnly": true,
-    "noEmit": false
+    "moduleResolution": "bundler",
+    "noEmit": true
   }
 }
